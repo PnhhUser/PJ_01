@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Logo } from "../Components/logo";
+import { CrossbarComponent } from "../Components/corssbar";
 
 const Sologan = () => {
   return (
@@ -20,8 +21,8 @@ const Sologan = () => {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
-          duration: 0.8,
-          delay: 0.5,
+          duration: 0.6,
+          delay: 0.3,
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
@@ -48,22 +49,32 @@ const Sologan = () => {
 
 const ButtonShop = () => {
   return (
-    <Link to="/">
-      <Flex
-        bg="#EB455F"
-        color="#fff"
-        w={150}
-        h={{ base: 10, md: 50 }}
-        alignItems="center"
-        justifyContent="center"
-        fontWeight="bold"
-        fontSize={{ base: 14, md: 18 }}
-        borderRadius={50}
-        textTransform="capitalize"
-      >
-        shop
-      </Flex>
-    </Link>
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.4,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <Link to="store">
+        <Flex
+          bg="#EB455F"
+          color="#fff"
+          w={150}
+          h={{ base: 10, md: 50 }}
+          alignItems="center"
+          justifyContent="center"
+          fontWeight="bold"
+          fontSize={{ base: 14, md: 18 }}
+          borderRadius={50}
+          textTransform="capitalize"
+        >
+          shop
+        </Flex>
+      </Link>
+    </motion.div>
   );
 };
 
@@ -138,17 +149,22 @@ const Slide = () => {
 
 export default function HomePage() {
   return (
-    <Flex h="100vh">
-      <Box w={"10%"} />
-      <Flex w={"90%"} wrap={{ base: "wrap", md: "nowrap" }}>
-        <Box w={"100%"}>
-          <Logo />
-          <Slide />
-        </Box>
-        <Box w={"100%"}>
-          <Sologan />
-        </Box>
+    <Box h="100vh">
+      <Box w="100%" px={{ base: 8, md: 20 }}>
+        <Logo />
+        <CrossbarComponent />
+      </Box>
+      <Flex>
+        <Box w={"10%"} />
+        <Flex w={"90%"} wrap={{ base: "wrap", md: "nowrap" }}>
+          <Box w={"100%"}>
+            <Slide />
+          </Box>
+          <Box w={"100%"}>
+            <Sologan />
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 }

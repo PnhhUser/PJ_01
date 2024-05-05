@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "type": "interior decor",
+        "child": [
+            1,
+            2,
+            3
+        ],
+        "data": [
+            {
+                "id": 1,
+                "type": "fabric painting",
+                "child": [
+                    1,
+                    2,
+                    3
+                ],
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "dragon scale fabric painting",
+                        "parent": 1,
+                        "price": "25.00"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Lotus flower fabric painting",
+                        "parent": 1,
+                        "price": "21.00"
+                    },
+                    {
+                        "id": 3,
+                        "name": "landscape fabric painting",
+                        "parent": 1,
+                        "price": "30.00"
+                    }
+                ],
+                "parent": 1
+            },
+            {
+                "id": 2,
+                "type": "Ceramic decor",
+                "child": [
+                    1,
+                    2,
+                    3
+                ],
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "Dragon and phoenix ceramic decor",
+                        "parent": 2,
+                        "price": "55.00"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Vietnamese countryside motifs ceramic decor",
+                        "parent": 2,
+                        "price": "51.00"
+                    },
+                    {
+                        "id": 3,
+                        "name": "Vietnamese dong son drum patterns ceramic decor",
+                        "parent": 2,
+                        "price": "54.00"
+                    }
+                ],
+                "parent": 1
+            },
+            {
+                "id": 3,
+                "type": "Wicker",
+                "child": [
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "Vietnamese conical hats",
+                        "parent": 3,
+                        "price": "2.00"
+                    },
+                    {
+                        "id": 2,
+                        "name": "rattan shelves",
+                        "parent": 3,
+                        "price": "11.00"
+                    },
+                    {
+                        "id": 3,
+                        "name": "bamboo baskets",
+                        "parent": 3,
+                        "price": "4.00"
+                    },
+                    {
+                        "id": 4,
+                        "name": "rattan planters",
+                        "parent": 3,
+                        "price": "9.00"
+                    }
+                ],
+                "parent": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "type": "jewelry",
+        "child": [
+            1,
+            2
+        ],
+        "data": [
+            {
+                "id": 1,
+                "type": "bracelet",
+                "child": [
+                    1
+                ],
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "Crystal bracelet",
+                        "price": "840.00",
+                        "parent": 1
+                    }
+                ],
+                "parent": 2
+            },
+            {
+                "id": 2,
+                "type": "Rings",
+                "child": [
+                    1
+                ],
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "Amethyst ring",
+                        "price": "640.00",
+                        "parent": 2
+                    }
+                ],
+                "parent": 2
+            }
+        ]
+    }
+]

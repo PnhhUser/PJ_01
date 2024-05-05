@@ -9,6 +9,9 @@ import LayoutPage from "./Layouts/layout";
 import LoginPage, { action as loginAction } from "./Pages/login";
 import RegisterPage, { action as registerAction } from "./Pages/register";
 import StorePage from "./Pages/store";
+import LayoutStore from "./Layouts/laytoutStore";
+import CategoriesPage from "./Pages/categories";
+import SubCategoriesPage from "./Pages/subCategories";
 
 function Router() {
   const routerApp = createBrowserRouter(
@@ -16,6 +19,7 @@ function Router() {
       <>
         <Route path="/" element={<LayoutPage />}>
           <Route index element={<HomePage />} />
+
           <Route path="login" element={<LoginPage />} action={loginAction} />
           <Route
             path="register"
@@ -23,7 +27,14 @@ function Router() {
             action={registerAction}
           />
 
-          <Route path="/store" element={<StorePage />} />
+          <Route path="/store" element={<LayoutStore />}>
+            <Route index element={<StorePage />} />
+            <Route path=":category" element={<CategoriesPage />} />
+            <Route
+              path=":category/:subCategory"
+              element={<SubCategoriesPage />}
+            />
+          </Route>
         </Route>
       </>
     )

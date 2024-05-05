@@ -167,7 +167,7 @@ export default function RegisterPage() {
             }}
           >
             <Flex justifyContent="center" alignItems="center">
-              <FaGear fontSize={110} />
+              <FaGear fontSize={110} color="#273036" />
             </Flex>
           </motion.div>
           <motion.div
@@ -180,7 +180,7 @@ export default function RegisterPage() {
             }}
           >
             <Flex justifyContent="center" alignItems="center">
-              <FaGear fontSize={90} />
+              <FaGear fontSize={90} color="#273036" />
             </Flex>
           </motion.div>
         </Box>
