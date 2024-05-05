@@ -12,14 +12,18 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { FaGear } from "react-icons/fa6";
-import { MdKey, MdOutlineEmail } from "react-icons/md";
-import { Form, useNavigation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ErrorForm } from "../Components/errorForm";
+import { Form, useNavigation } from "react-router-dom";
+import { MdKey, MdOutlineEmail } from "react-icons/md";
+import { useState } from "react";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { SignInOther } from "../Components/signInOther";
+import { motion } from "framer-motion";
+import { FaGear } from "react-icons/fa6";
 import { Logo } from "../Components/logo";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
@@ -35,7 +39,7 @@ export async function action({ request }) {
   return null;
 }
 
-const FormLogin = () => {
+const FormRegister = () => {
   const [isVisible, setIsVisible] = useState(false);
   const navigation = useNavigation();
 
@@ -43,6 +47,20 @@ const FormLogin = () => {
     <Form method="post">
       <ErrorForm />
       <Flex gap={5} flexDirection="column" alignItems="end">
+        <InputGroup w={{ base: "100%", md: 350 }}>
+          <InputLeftElement>
+            <AiOutlineUser />
+          </InputLeftElement>
+          <Input
+            type="text"
+            bg="#fff"
+            name="email"
+            fontSize={14}
+            focusBorderColor="#fff"
+            autoComplete="off"
+            letterSpacing={1}
+          />
+        </InputGroup>
         <InputGroup w={{ base: "100%", md: 350 }}>
           <InputLeftElement>
             <MdOutlineEmail />
@@ -67,6 +85,7 @@ const FormLogin = () => {
             name={isVisible ? "text" : "password"}
             fontSize={14}
             focusBorderColor="#fff"
+            autoComplete="new-password"
           />
           <InputRightElement>
             <Box onClick={() => setIsVisible(!isVisible)}>
@@ -75,7 +94,7 @@ const FormLogin = () => {
           </InputRightElement>
         </InputGroup>
         <Button type="submit" w={100} fontSize={14} fontWeight="bold">
-          {navigation.state === "submitting" ? "Loading..." : "Sign In"}
+          {navigation.state === "submitting" ? "Loading..." : "Sign Up"}
         </Button>
       </Flex>
       <SignInOther />
@@ -109,19 +128,19 @@ const TabComponent = () => {
           color={tabIndex === 0 ? "rgb(235, 69, 95)" : "#273036"}
           mr={1}
         >
-          Login
+          Register
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <FormLogin />
+          <FormRegister />
         </TabPanel>
       </TabPanels>
     </Tabs>
   );
 };
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const navigation = useNavigation();
 
   return (

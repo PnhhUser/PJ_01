@@ -6,6 +6,7 @@ import {
   AiOutlineHome,
   AiOutlineLogin,
   AiOutlineShop,
+  AiOutlineUserAdd,
 } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
@@ -22,8 +23,23 @@ const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
 
   const activePops = {
     ...styleProps,
-    color: "rgb(0,137,232)",
+    color: "#EB455F",
   };
+
+  if (linkName === null) {
+    return (
+      <Box
+        bg="#fff"
+        boxSize={30}
+        borderRadius={30}
+        cursor="pointer"
+        pos={isSize ? "absolute" : null}
+        onClick={typeof onClick === "function" ? onClick : null}
+      >
+        <Box style={styleProps}>{children}</Box>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -61,11 +77,12 @@ export const Navbar = function () {
       zIndex={99}
       bg="#273036"
       gap={15}
-      w={60}
-      h={isSize ? "4vh" : "50vh"}
+      w={{ base: "50px", md: "60px" }}
+      h={isSize ? { base: "50px", md: "60px" } : "50vh"}
       borderRadius={30}
       ms={2}
       alignItems="center"
+      justifyContent="center"
       py={15}
       style={{
         transform: "translateY(-50%)",
@@ -88,8 +105,14 @@ export const Navbar = function () {
         children={<AiOutlineLogin style={{ strokeWidth: 20 }} />}
         isSize={isSize}
       />
+      <FunctionNavBar
+        linkName={"register"}
+        children={<AiOutlineUserAdd style={{ strokeWidth: 20 }} />}
+        isSize={isSize}
+      />
       <Spacer />
       <FunctionNavBar
+        linkName={null}
         children={
           isSize ? (
             <AiOutlineAppstore style={{ strokeWidth: 20 }} />
