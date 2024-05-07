@@ -6,7 +6,6 @@ import {
   AiOutlineHome,
   AiOutlineLogin,
   AiOutlineShop,
-  AiOutlineUserAdd,
 } from "react-icons/ai";
 import { BsCardText } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
