@@ -37,7 +37,18 @@ export async function action({ request }) {
     return "Fields cannot be empty";
   }
 
-  await signUp(email, password, userData);
+  if (password.length < 6) {
+    return "Password greater than 6 characters";
+  }
+
+  try {
+    const user = await signUp(email, password, userData);
+    if ("auth/email-already-in-use" === user.code) {
+      return "This email already exists";
+    }
+  } catch (error) {
+    return error;
+  }
 
   return redirect("/");
 }

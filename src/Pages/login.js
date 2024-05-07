@@ -30,6 +30,10 @@ export async function action({ request }) {
     return "Fields cannot be empty";
   }
 
+  if (password.length < 6) {
+    return "Password greater than 6 characters";
+  }
+
   await signIn(email, password);
 
   return redirect("/");
