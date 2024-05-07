@@ -8,7 +8,9 @@ import {
   AiOutlineShop,
   AiOutlineUserAdd,
 } from "react-icons/ai";
+import { BsCardText } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import { useCart } from "../contexts/cartContext";
 
 const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
   const styleProps = {
@@ -64,9 +66,14 @@ const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
 
 export const Navbar = function () {
   const [isSize, setIsSize] = useState(false);
+  const { onOpen } = useCart();
 
   const handleSizeNavbar = () => {
     setIsSize((isSize) => !isSize);
+  };
+
+  const handleOpenCart = () => {
+    onOpen();
   };
 
   return (
@@ -87,7 +94,7 @@ export const Navbar = function () {
       style={{
         transform: "translateY(-50%)",
         transition: ".6s",
-        boxShadow: "4px 4px 10px #a1a1a1",
+        boxShadow: "1px 1px 2px #fff",
       }}
     >
       <FunctionNavBar
@@ -101,15 +108,17 @@ export const Navbar = function () {
         isSize={isSize}
       />
       <FunctionNavBar
+        linkName={null}
+        children={<BsCardText />}
+        onClick={handleOpenCart}
+        isSize={isSize}
+      />
+      <FunctionNavBar
         linkName={"login"}
         children={<AiOutlineLogin style={{ strokeWidth: 20 }} />}
         isSize={isSize}
       />
-      <FunctionNavBar
-        linkName={"register"}
-        children={<AiOutlineUserAdd style={{ strokeWidth: 20 }} />}
-        isSize={isSize}
-      />
+
       <Spacer />
       <FunctionNavBar
         linkName={null}

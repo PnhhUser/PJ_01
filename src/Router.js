@@ -12,6 +12,7 @@ import StorePage from "./Pages/store";
 import LayoutStore from "./Layouts/laytoutStore";
 import CategoriesPage from "./Pages/categories";
 import SubCategoriesPage from "./Pages/subCategories";
+import { CartProvider } from "./contexts/cartContext";
 
 function Router() {
   const routerApp = createBrowserRouter(
@@ -40,7 +41,11 @@ function Router() {
     )
   );
 
-  return <RouterProvider router={routerApp} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={routerApp} />
+    </CartProvider>
+  );
 }
 
 export default Router;

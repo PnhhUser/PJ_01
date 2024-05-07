@@ -149,7 +149,7 @@ const Slide = () => {
 
 export default function HomePage() {
   return (
-    <Box h="100vh">
+    <Box>
       <Box w="100%" px={{ base: 8, md: 20 }}>
         <Logo />
         <CrossbarComponent />
