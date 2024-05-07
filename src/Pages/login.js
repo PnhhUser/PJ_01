@@ -7,22 +7,41 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import { Form, Link } from "react-router-dom";
+import {
+  Form,
+  Link,
+  redirect,
+  useActionData,
+  useNavigation,
+} from "react-router-dom";
+import { ErrorForm } from "../Components/errorForm";
+import { signIn } from "../utils";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
+  const password = formData.get("password");
 
   await sleep(5000);
 
-  console.log(email);
+  if (email.length === 0 || password.length === 0) {
+    return "Fields cannot be empty";
+  }
 
-  return null;
+  await signIn(email, password);
+
+  return redirect("/");
 }
 
 const LoginForm = () => {
+  const navigation = useNavigation();
+  let errorMessage = useActionData();
+
+  errorMessage =
+    errorMessage === undefined || errorMessage === null ? "" : errorMessage;
+
   return (
     <Box
       w={{ base: 300, md: 400 }}
@@ -43,6 +62,7 @@ const LoginForm = () => {
         </Text>
       </Box>
       <Form method="post">
+        <ErrorForm message={errorMessage} />
         <FormControl mb={5}>
           <FormLabel
             fontSize={14}
@@ -63,7 +83,7 @@ const LoginForm = () => {
           >
             Password
           </FormLabel>
-          <Input type="password" name="email" />
+          <Input type="password" name="password" />
         </FormControl>
         <Flex justifyContent="start">
           <Link
@@ -78,16 +98,29 @@ const LoginForm = () => {
           </Link>
         </Flex>
         <Flex justifyContent="start">
-          <Button
-            mt={4}
-            mb={10}
-            color="#fff"
-            bg="#273036"
-            type="submit"
-            _hover={{ bg: "#273036" }}
-          >
-            Login
-          </Button>
+          {navigation.state === "submitting" ? (
+            <Button
+              mt={4}
+              mb={10}
+              color="#fff"
+              bg="#273036"
+              type="submit"
+              _hover={{ bg: "#273036" }}
+              isLoading
+              loadingText="Loading"
+            />
+          ) : (
+            <Button
+              mt={4}
+              mb={10}
+              color="#fff"
+              bg="#273036"
+              type="submit"
+              _hover={{ bg: "#273036" }}
+            >
+              Login
+            </Button>
+          )}
         </Flex>
       </Form>
     </Box>

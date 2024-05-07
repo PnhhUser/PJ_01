@@ -5,11 +5,15 @@ import {
   AiOutlineClose,
   AiOutlineHome,
   AiOutlineLogin,
+  AiOutlineLogout,
   AiOutlineShop,
 } from "react-icons/ai";
 import { BsCardText } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/cartContext";
+import { useAuth } from "../contexts/authContext";
+import { FaUser } from "react-icons/fa";
+import { logout } from "../utils";
 
 const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
   const styleProps = {
@@ -65,7 +69,9 @@ const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
 
 export const Navbar = function () {
   const [isSize, setIsSize] = useState(false);
+  const { user, role, isLoading } = useAuth();
   const { onOpen } = useCart();
+  const navigate = useNavigate();
 
   const handleSizeNavbar = () => {
     setIsSize((isSize) => !isSize);
@@ -74,6 +80,15 @@ export const Navbar = function () {
   const handleOpenCart = () => {
     onOpen();
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  if (!isLoading) return;
+
+  const linkname = role === 99 ? "dashboard" : "personal";
 
   return (
     <Flex
@@ -112,11 +127,27 @@ export const Navbar = function () {
         onClick={handleOpenCart}
         isSize={isSize}
       />
-      <FunctionNavBar
-        linkName={"login"}
-        children={<AiOutlineLogin style={{ strokeWidth: 20 }} />}
-        isSize={isSize}
-      />
+      {user ? (
+        <>
+          <FunctionNavBar
+            isSize={isSize}
+            linkName={linkname}
+            children={<FaUser />}
+          />
+          <FunctionNavBar
+            isSize={isSize}
+            linkName={null}
+            children={<AiOutlineLogout />}
+            onClick={handleLogout}
+          />
+        </>
+      ) : (
+        <FunctionNavBar
+          linkName={"login"}
+          children={<AiOutlineLogin style={{ strokeWidth: 20 }} />}
+          isSize={isSize}
+        />
+      )}
 
       <Spacer />
       <FunctionNavBar

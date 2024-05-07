@@ -13,6 +13,12 @@ import LayoutStore from "./Layouts/laytoutStore";
 import CategoriesPage from "./Pages/categories";
 import SubCategoriesPage from "./Pages/subCategories";
 import { CartProvider } from "./contexts/cartContext";
+import { AuthProvider } from "./contexts/authContext";
+import PersonalPage from "./Pages/personal";
+import LayoutAdmin from "./Layouts/layoutAdmin";
+import DashboardPage from "./Pages/admin/dashboard";
+import { PrivateAdmin } from "./Components/privateAdmin";
+import { PrivateUser } from "./Components/privateUser";
 
 function Router() {
   const routerApp = createBrowserRouter(
@@ -28,6 +34,26 @@ function Router() {
             action={registerAction}
           />
 
+          <Route
+            path="/personal"
+            element={
+              <PrivateUser>
+                <PersonalPage />
+              </PrivateUser>
+            }
+          />
+
+          <Route path="/dashboard" element={<LayoutAdmin />}>
+            <Route
+              index
+              element={
+                <PrivateAdmin>
+                  <DashboardPage />
+                </PrivateAdmin>
+              }
+            />
+          </Route>
+
           <Route path="/store" element={<LayoutStore />}>
             <Route index element={<StorePage />} />
             <Route path=":category" element={<CategoriesPage />} />
@@ -42,9 +68,11 @@ function Router() {
   );
 
   return (
-    <CartProvider>
-      <RouterProvider router={routerApp} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={routerApp} />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
