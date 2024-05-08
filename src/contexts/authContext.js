@@ -13,6 +13,7 @@ export const AuthProvider = function ({ children }) {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [person, setPerson] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -20,8 +21,9 @@ export const AuthProvider = function ({ children }) {
         setUser(user);
         setIsLoading(true);
         readData("users").then((data) => {
-          const result = data.find((d) => d.email === user?.email);
-          setRole(result.role);
+          const result = data.find((d) => d.userId === user?.uid);
+          setRole(result?.role);
+          setPerson(result);
         });
       } else {
         setUser(user);
@@ -31,7 +33,7 @@ export const AuthProvider = function ({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, isLoading }}>
+    <AuthContext.Provider value={{ user, role, isLoading, person }}>
       {children}
     </AuthContext.Provider>
   );

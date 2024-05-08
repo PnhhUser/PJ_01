@@ -9,13 +9,15 @@ import {
   AiOutlineShop,
 } from "react-icons/ai";
 import { BsCardText } from "react-icons/bs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/cartContext";
 import { useAuth } from "../contexts/authContext";
 import { FaUser } from "react-icons/fa";
 import { logout } from "../utils";
 
 const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
+  const location = useLocation();
+
   const styleProps = {
     color: "#273036",
     display: "flex",
@@ -60,6 +62,7 @@ const FunctionNavBar = ({ linkName, children, onClick, isSize }) => {
         style={({ isActive }) => {
           return isActive && linkName ? activePops : styleProps;
         }}
+        state={{ search: location?.pathname }}
       >
         {children}
       </NavLink>

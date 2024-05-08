@@ -34,7 +34,14 @@ export async function action({ request }) {
     return "Password greater than 6 characters";
   }
 
-  await signIn(email, password);
+  const user = await signIn(email, password);
+
+  if (
+    user?.code === "auth/invalid-credential" ||
+    user?.code === "auth/user-not-found"
+  ) {
+    return "This account does not exist";
+  }
 
   return redirect("/");
 }

@@ -1,9 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ButtonLink = ({ name, linkName }) => {
+  const location = useLocation();
+
   return (
-    <Link to={linkName}>
+    <Link to={linkName} state={{ search: location.pathname }}>
       <Text
         borderWidth={1}
         borderRadius={50}
