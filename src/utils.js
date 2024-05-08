@@ -21,17 +21,17 @@ export const ROLE = {
   admin: 99,
 };
 
-function generateID(length = 16) {
-  let id = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+// function generateID(length = 16) {
+//   let id = "";
+//   const possible =
+//     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (let i = 0; i < length; i++) {
-    id += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
+//   for (let i = 0; i < length; i++) {
+//     id += possible.charAt(Math.floor(Math.random() * possible.length));
+//   }
 
-  return id;
-}
+//   return id;
+// }
 
 export const signUp = async function (email, password, userData) {
   try {
