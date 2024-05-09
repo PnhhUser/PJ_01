@@ -10,12 +10,15 @@ import {
 import {
   Form,
   Link,
+  Navigate,
   redirect,
   useActionData,
   useNavigation,
 } from "react-router-dom";
 import { ErrorForm } from "../Components/errorForm";
-import { signIn } from "../utils";
+import { ROLE, signIn } from "../utils";
+import { useAuth } from "../contexts/authContext";
+import { LoadingComponent } from "../Components/loadingComponent";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
@@ -23,6 +26,7 @@ export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
+  const role = formData.get("role");
 
   await sleep(5000);
 
@@ -43,12 +47,21 @@ export async function action({ request }) {
     return "This account does not exist";
   }
 
+  if ("auth/wrong-password" === user?.code) {
+    return "Incorrect password";
+  }
+
+  if (Number(role) === ROLE.admin) {
+    return redirect("/dashboard");
+  }
+
   return redirect("/");
 }
 
 const LoginForm = () => {
   const navigation = useNavigation();
   let errorMessage = useActionData();
+  const { role } = useAuth();
 
   errorMessage =
     errorMessage === undefined || errorMessage === null ? "" : errorMessage;
@@ -74,6 +87,7 @@ const LoginForm = () => {
       </Box>
       <Form method="post">
         <ErrorForm message={errorMessage} />
+        <Input type="hidden" name="role" defaultValue={role} />
         <FormControl mb={5}>
           <FormLabel
             fontSize={14}
@@ -139,6 +153,16 @@ const LoginForm = () => {
 };
 
 export default function LoginPage() {
+  const { user, isLoading, role } = useAuth();
+
+  if (!isLoading) return <LoadingComponent />;
+
+  if (user && Number(role) === Number(ROLE.admin)) {
+    return <Navigate to="/dashboard" />;
+  }
+
+  if (user) return <Navigate to="/" />;
+
   return (
     <Flex w="100%" justifyContent="center" alignItems="center" h="100vh">
       <LoginForm />

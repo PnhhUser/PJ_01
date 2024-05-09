@@ -19,6 +19,7 @@ import LayoutAdmin from "./Layouts/layoutAdmin";
 import DashboardPage from "./Pages/admin/dashboard";
 import { PrivateAdmin } from "./Components/privateAdmin";
 import { PrivateUser } from "./Components/privateUser";
+import UsersPage from "./Pages/admin/users";
 
 function Router() {
   const routerApp = createBrowserRouter(
@@ -49,6 +50,14 @@ function Router() {
               element={
                 <PrivateAdmin>
                   <DashboardPage />
+                </PrivateAdmin>
+              }
+            />
+            <Route
+              path=":users"
+              element={
+                <PrivateAdmin>
+                  <UsersPage />
                 </PrivateAdmin>
               }
             />

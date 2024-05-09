@@ -36,7 +36,7 @@ const ColumnComponent = ({ children, width }) => {
 
 export default function DashboardPage() {
   return (
-    <Flex w="100%" justifyContent="center" alignItems="center">
+    <Flex w="100%" h="100vh" justifyContent="center" alignItems="center">
       <Flex
         borderWidth={1}
         borderRadius={10}
@@ -66,7 +66,7 @@ export default function DashboardPage() {
           wrap={{ base: "wrap", md: "nowrap" }}
         >
           <ColumnComponent width={{ base: "100%", md: "50%" }}>
-            <ButtonLink name={"user"} linkName={"user"} />
+            <ButtonLink name={"users"} linkName={"users"} />
             <ButtonLink name={"catalog"} linkName={"catalog"} />
             <ButtonLink name={"product"} linkName={"product"} />
           </ColumnComponent>

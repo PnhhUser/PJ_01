@@ -10,12 +10,15 @@ import {
 import {
   Form,
   Link,
+  Navigate,
   redirect,
   useActionData,
   useNavigation,
 } from "react-router-dom";
 import { ErrorForm } from "../Components/errorForm";
-import { signUp } from "../utils";
+import { ROLE, signUp } from "../utils";
+import { useAuth } from "../contexts/authContext";
+import { LoadingComponent } from "../Components/loadingComponent";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
@@ -157,6 +160,16 @@ const SignUpForm = () => {
 };
 
 export default function RegisterPage() {
+  const { user, isLoading, role } = useAuth();
+
+  if (!isLoading) return <LoadingComponent />;
+
+  if (user && Number(role) === Number(ROLE.admin)) {
+    return <Navigate to="/dashboard" />;
+  }
+
+  if (user) return <Navigate to="/" />;
+
   return (
     <Flex w="100%" justifyContent="center" alignItems="center" h="100vh">
       <SignUpForm />
